@@ -36,6 +36,8 @@ public class AutenticacaoController {
 			//Postman e afins para enviar o request com os dados no body e simular o login de autenticação
 			Authentication authentication = authManager.authenticate(dadosLogin);
 			String token = tokenService.gerarToken(authentication);
+			
+			//devolução de tokenDto + o método de autenticação HTTP utilizado (Basic, digest, bearer...)
 			return ResponseEntity.ok(new TokenDto(token, "Bearer"));
 			
 		} catch (AuthenticationException e) {

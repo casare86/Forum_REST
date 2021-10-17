@@ -12,6 +12,9 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+
+import br.com.casare86.forum.repository.UsuarioRepository;
 
 @EnableWebSecurity
 @Configuration
@@ -19,6 +22,12 @@ public class SecurityConfigurations extends WebSecurityConfigurerAdapter {
 
 	@Autowired
 	private AutenticacaoService autenticacaoService;
+	
+	@Autowired //precisa ser injetada a dependencia para ser utilizada na AutenticacaoTokenFilter
+	private TokenService tokenService;
+	
+	@Autowired
+	private UsuarioRepository usuarioRepository;
 	
 	@Override
 	@Bean
@@ -43,7 +52,9 @@ public class SecurityConfigurations extends WebSecurityConfigurerAdapter {
 		.antMatchers("/h2-console/*").permitAll() //permissões para acessar os endpoints 
 		.anyRequest().authenticated() //todos os usuários e acessos devem estar autenticados
 		.and().csrf().disable() //Cross Site Request Force - evita ataques hackers, por ser stateless não precisa ficar habilitado
-		.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS); //evita criação SESSION para cada request (evita sobrecarga no servidor)
+		.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS) //evita criação SESSION para cada request (evita sobrecarga no servidor)
+		.and().addFilterBefore(new AutenticacaoTokenFilter(tokenService, usuarioRepository), UsernamePasswordAuthenticationFilter.class); //adiciona nosso filtro antes de seguir com o padrão do spring
+		
 		// .formLogin() //gera uma página com form para autorização de usuários
 		
 		http.headers().frameOptions().disable();//necessário para evitar problemas com o carregamento do H2(BD)

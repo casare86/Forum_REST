@@ -155,9 +155,17 @@ http://localhost:8080/topicos/paginadoManual?pagina=1&quantidade=2 (com 5 tópic
  http://localhost:8080/topicos/paginado?page=0&size=10&sort=id,asc$sort=dataCriacao,desc
  
  
- Autenticação (POST) (/auth)
-  http://localhost:8080/auth 
-  {
-  	"email":"aluno@email.com",
+Autenticação (POST) (/auth)
+http://localhost:8080/auth 
+{
+ 	"email":"aluno@email.com",
   	"senha": "123456"
-  }
+}
+
+//Com o processo via TOKEN
+Delete: http://localhost:8080/topicos/2  
+Header: 
+Content-Type: application/json
+Authorization: Bearer hashDoToken
+  
+  

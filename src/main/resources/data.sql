@@ -1,4 +1,4 @@
- INSERT INTO USUARIO(nome, email, senha) VALUES('Aluno', 'aluno@email.com', '$2a$10$kcVH3Uy86nJgQtYqAFffZORT9wbNMuNtqytcUZQRX51dx6IfSFEd.'); #truck123
+ INSERT INTO USUARIO(nome, email, senha) VALUES('Aluno', 'aluno@email.com', '$2a$10$kcVH3Uy86nJgQtYqAFffZORT9wbNMuNtqytcUZQRX51dx6IfSFEd.'); --truck123
 INSERT INTO USUARIO(nome, email, senha) VALUES('Tester', 'teste@email.com', '$2a$10$P4bD3JQOthGpfIFPzrtjMO93AL9V2wuCGuYv51lP2.KjQsgwVN8fW');
 
 INSERT INTO CURSO(nome, categoria) VALUES('Spring', 'Programação');

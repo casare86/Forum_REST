@@ -47,9 +47,10 @@ public class SecurityConfigurations extends WebSecurityConfigurerAdapter {
 	protected void configure(HttpSecurity http) throws Exception {
 		http.authorizeRequests()
 		.antMatchers(HttpMethod.GET, "/topicos").permitAll()
-		.antMatchers(HttpMethod.GET, "/topicos/*").permitAll()
+		.antMatchers(HttpMethod.GET, "/topicos/**").permitAll()
 		.antMatchers(HttpMethod.POST, "/auth").permitAll()
-		.antMatchers("/h2-console/*").permitAll() //permissões para acessar os endpoints 
+		.antMatchers("/h2-console/**").permitAll() //permissões para acessar os endpoints 
+		.antMatchers(HttpMethod.GET, "/actuator/**").permitAll() //verificar status da aplicação - configurar para DEVs apenas (permissão de administração do sistema de preferencia
 		.anyRequest().authenticated() //todos os usuários e acessos devem estar autenticados
 		.and().csrf().disable() //Cross Site Request Force - evita ataques hackers, por ser stateless não precisa ficar habilitado
 		.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS) //evita criação SESSION para cada request (evita sobrecarga no servidor)
@@ -64,6 +65,8 @@ public class SecurityConfigurations extends WebSecurityConfigurerAdapter {
 	//Configuracoes de recursos estaticos(js, css, imagens, etc.)
 	@Override
 	public void configure(WebSecurity web) throws Exception {
+		web.ignoring().antMatchers("/**.html", "/v2/api-docs", "/webjars/**", "/configuration/**", "/swagger-resources/**");
+		
 	}
 	
 }

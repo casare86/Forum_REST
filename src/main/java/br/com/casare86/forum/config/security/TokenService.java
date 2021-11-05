@@ -20,7 +20,7 @@ public class TokenService {
 	@Value("${forum.jwt.expiration:180000}") //prazo de validade da API em milisegundos
 	private String expiration;
 	
-	@Value("${forum.jwt.secret}") //secret é a chave da sua API - usar algoritimos para gerar strings grandes (256)
+	@Value("${forum.jwt.secret:teste123}") //secret é a chave da sua API - usar algoritimos para gerar strings grandes (256)
 	private String secret;
 
 	public String gerarToken(Authentication authentication) {

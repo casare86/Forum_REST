@@ -42,6 +42,7 @@ public class AutenticacaoTokenFilter extends OncePerRequestFilter {
 
 	private void autenticarCliente(String token) {
 		Long idUsuario = tokenService.getIdUsuario(token);
+		//precisa verificar se o usuário foi encontrado e transformado em objeto corretamente.
 		Usuario usuario = usuarioRepository.findById(idUsuario).get();
 		
 		//UsernamePassordAuthenticationToken pode utilizar o usuário e seus perfis sem precisar de senha, pois já está autenticado (pelo token)

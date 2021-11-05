@@ -168,4 +168,39 @@ Header:
 Content-Type: application/json
 Authorization: Bearer hashDoToken
   
+//Actuator - verificar o status da aplicação
+GET: http://localhost:8080/actuator
+
   
+//Actuator - verificar o status da aplicação
+GET: http://localhost:8080/actuator/heath //devolve status UP (rodando) DOWN (fora do ar)
+retorno: (com a opção management.endpoint.health.show-details=always)
+{
+    "status": "UP",
+    "components": {
+        "db": {
+            "status": "UP",
+            "details": {
+                "database": "H2",
+                "validationQuery": "isValid()"
+            }
+        },
+        "diskSpace": {
+            "status": "UP",
+            "details": {
+                "total": 250438021120,
+                "free": 53509648384,
+                "threshold": 10485760,
+                "exists": true
+            }
+        },
+        "ping": {
+            "status": "UP"
+        }
+    }
+}
+
+//Actuator - Informações (por default vem vazio) - configurável via Application.properties
+GET: http://localhost:8080/actuator/info
+
+ 
